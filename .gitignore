@@ -1,0 +1,13 @@
+.idea/
+build/
+dist/
+pretrained_models/
+pygame_gui/
+temp/
+__pycache__/
+
+songs/
+package.bat
+*.zip
+*.exe
+*.pfx

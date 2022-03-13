@@ -1,0 +1,34 @@
+import sys
+import os
+from multiprocessing import freeze_support
+import json
+import numpy
+from spleeter.separator import Separator
+from spleeter.audio.adapter import AudioAdapter
+
+
+def probe(path):
+    from subprocess import PIPE, run
+
+    command = ['ffprobe', '-v', 'quiet', '-show_format', '-print_format', 'json', path]
+    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    return json.loads(result.stdout)
+
+
+if __name__ == '__main__':
+    freeze_support()
+
+    path = r"F:\MUSIC\+44\When Your Heart Stops Beating\10 No, It Isn't.m4a" #sys.argv[1]
+    start = sys.argv[1]
+    stop = sys.argv[2]
+    number = sys.argv[3]
+    info = probe(path)
+
+    separator = Separator("stemsconfig.json")
+
+    audio_loader = AudioAdapter.default()
+    audio_loader.load(path, float(start), float(stop))
+
+    separator.separate_to_file(path, 'temp', audio_loader,
+                               filename_format="{filename}/" + number + " {instrument}.{codec}")
+
