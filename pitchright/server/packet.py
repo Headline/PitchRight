@@ -16,10 +16,14 @@ class PacketType(IntEnum):
 class PacketFactory:
     @staticmethod
     def create_join_packet(lobby_code):
-        return bytes([PacketType.JOIN, lobby_code.encode()])
+        bts = bytearray([PacketType.JOIN])
+        bts.extend(lobby_code.encode())
+        return bytes(bts)
     @staticmethod
     def create_new_lobby_packet(lobby_code):
-        return bytes([PacketType.CREATE_RESPONSE, lobby_code.encode])
+        bts = bytearray([PacketType.CREATE_RESPONSE])
+        bts.extend(lobby_code.encode())
+        return bytes(bts)
     @staticmethod
     def create_invalid_lobby_packet():
         return bytes([PacketType.INVALID_LOBBY])
