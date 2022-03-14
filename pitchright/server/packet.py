@@ -17,8 +17,14 @@ class PacketFactory:
     def create_join_packet(lobby_code):
         return bytearray([PacketType.JOIN, lobby_code.encode()])
     @staticmethod
+    def create_new_lobby_packet(lobby_code):
+        return bytearray([PacketType.CREATE_RESPONSE, lobby_code.encode])
+    @staticmethod
     def create_invalid_lobby_packet():
         return bytearray([PacketType.INVALID_LOBBY])
+    @staticmethod
+    def create_lobby():
+        return bytearray([PacketType.CREATE])
     @staticmethod
     def create_p2p_start_packet(ip, port, knownport):
         ip = int(ipaddress.ip_address(ip))
@@ -31,20 +37,23 @@ class Packet:
         self.address = address
 
     def get_type(self):
-        return bytes[0:2]
+        return self.bytes[0:2]
 
     def is_ack(self):
-        return bytes[0:2] == PacketType.ACK
+        return self.bytes[0:2] == PacketType.ACK
 
     def is_create(self):
-        return bytes[0:2] == PacketType.CREATE
+        return self.bytes[0:2] == PacketType.CREATE
 
     def is_join(self):
-        return bytes[0:2] == PacketType.JOIN
+        return self.bytes[0:2] == PacketType.JOIN
 
     def is_connect(self):
-        return bytes[0:2] == PacketType.CONNECT
+        return self.bytes[0:2] == PacketType.CONNECT
+
+    def is_create_response(self):
+        return self.bytes[0:2] == PacketType.CREATE_RESPONSE
 
     def get_lobby_code(self):
-        assert self.is_join()
-        return bytes[2:8]
+        assert self.is_join() or self.is_create_response()
+        return self.bytes[2:8]

@@ -10,7 +10,6 @@ from pitchright.ui.menu import MainMenu
 
 class PitchRight:
     def __init__(self, width, height):
-
         # Setup audio
         pygame.mixer.pre_init(44100, -16, 2, 1024)
         pygame.init()
@@ -35,6 +34,9 @@ class PitchRight:
         self.map = Map(self)
         self.entities = EntityManager(self)
         self.menu = MainMenu(self)
+
+        # Networking
+        self.socket = None
 
     def start(self):
         self.game_loop()

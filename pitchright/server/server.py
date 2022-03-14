@@ -4,6 +4,7 @@ import string
 
 from packet import Packet, PacketFactory
 
+
 class Lobby:
     def __init__(self, code, initial_client):
         self.code = code
@@ -16,6 +17,7 @@ class Lobby:
 
         sock.sendto(PacketFactory.create_p2p_start_packet(c1_ip, c1_port, 5002), self.other)
         sock.sendto(PacketFactory.create_p2p_start_packet(c2_ip, c2_port, 5002), self.initial_client)
+
 
 class Server:
     def __init__(self, p):
@@ -47,6 +49,7 @@ class Server:
             lobby = Lobby(code, packet.address)
             print("Creating lobby with code: " + code)
             self.lobbies[code] = lobby
+            self.sock.sendto(PacketFactory.create_new_lobby_packet(code), packet.address)
         elif packet.is_ack():
             # handle ack
             pass

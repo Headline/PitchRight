@@ -1,6 +1,8 @@
 import pygame as pygame
+import socket
 from PIL import Image, ImageFilter
 
+from pitchright.server.packet import PacketFactory, Packet
 from pitchright.ui.song_select_menu import SongSelectMenu
 from pitchright.ui.common import draw_button, draw_text
 
@@ -36,6 +38,12 @@ class MutiplayerMenu:
 
 
     def on_create_lobby(self):
+        self.game.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.game.socket.bind(('0.0.0.0', 50001))
+        self.game.socket.sendto(PacketFactory.create_lobby(), ('headlinedev.xyz', 2082))
+        data = self.game.socket.recv(512)
+        p = Packet(data, None)
+        p.
         print("Create lobby")
 
     def on_click(self, mx, my):
