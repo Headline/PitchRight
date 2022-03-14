@@ -37,22 +37,22 @@ class Packet:
         self.address = address
 
     def get_type(self):
-        return self.bytes[0:2]
+        return self.bytes[0]
 
     def is_ack(self):
-        return self.bytes[0:2] == PacketType.ACK
+        return self.bytes[0] == PacketType.ACK
 
     def is_create(self):
-        return self.bytes[0:2] == PacketType.CREATE
+        return self.bytes[0] == PacketType.CREATE
 
     def is_join(self):
-        return self.bytes[0:2] == PacketType.JOIN
+        return self.bytes[0] == PacketType.JOIN
 
     def is_connect(self):
-        return self.bytes[0:2] == PacketType.CONNECT
+        return self.bytes[0] == PacketType.CONNECT
 
     def is_create_response(self):
-        return self.bytes[0:2] == PacketType.CREATE_RESPONSE
+        return self.bytes[0] == PacketType.CREATE_RESPONSE
 
     def get_lobby_code(self):
         assert self.is_join() or self.is_create_response()

@@ -43,8 +43,7 @@ class MutiplayerMenu:
         self.game.socket.sendto(PacketFactory.create_lobby(), ('headlinedev.xyz', 2082))
         data = self.game.socket.recv(512)
         p = Packet(data, None)
-        p.
-        print("Create lobby")
+        print("Create lobby code: " + str(p.get_lobby_code()))
 
     def on_click(self, mx, my):
         if self.create_lobby_button.collidepoint((mx, my)):

@@ -8,6 +8,7 @@ from pitchright.entities import EntityManager
 from pitchright.ui.map import Map
 from pitchright.ui.menu import MainMenu
 
+
 class PitchRight:
     def __init__(self, width, height):
         # Setup audio
