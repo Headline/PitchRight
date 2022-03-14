@@ -2,7 +2,7 @@ import random
 import socket
 import string
 
-from server.packet import Packet, PacketFactory
+from packet import Packet, PacketFactory
 
 class Lobby:
     def __init__(self, code, initial_client):
@@ -58,5 +58,9 @@ class Server:
             print("Joining lobby with code: " + code)
             self.lobbies[code].other = packet.address
             self.lobbies[code].dispatch()
+
+
+s = Server(2082)
+s.run()
 
 
