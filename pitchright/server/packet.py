@@ -1,6 +1,7 @@
 from enum import IntEnum
 import ipaddress
 
+
 class PacketType(IntEnum):
     ACK = 0xFF
     CREATE = 0xFE
@@ -15,20 +16,20 @@ class PacketType(IntEnum):
 class PacketFactory:
     @staticmethod
     def create_join_packet(lobby_code):
-        return bytearray([PacketType.JOIN, lobby_code.encode()])
+        return bytes([PacketType.JOIN, lobby_code.encode()])
     @staticmethod
     def create_new_lobby_packet(lobby_code):
-        return bytearray([PacketType.CREATE_RESPONSE, lobby_code.encode])
+        return bytes([PacketType.CREATE_RESPONSE, lobby_code.encode])
     @staticmethod
     def create_invalid_lobby_packet():
-        return bytearray([PacketType.INVALID_LOBBY])
+        return bytes([PacketType.INVALID_LOBBY])
     @staticmethod
     def create_lobby():
-        return bytearray([PacketType.CREATE])
+        return bytes([PacketType.CREATE])
     @staticmethod
     def create_p2p_start_packet(ip, port, knownport):
         ip = int(ipaddress.ip_address(ip))
-        return bytearray([PacketType.P2P_START, ip, port, knownport])
+        return bytes([PacketType.P2P_START, ip, port, knownport])
 
 
 class Packet:
