@@ -34,7 +34,8 @@ class Server:
             data, address = self.sock.recvfrom(128)
 
             packet = Packet(data, address)
-            self.process_packet(packet)
+            t = threading.Thread(target=self.process_packet, args=(packet,))
+            t.start()
 
     def create_lobby_code(self):
         lobby_code = ''

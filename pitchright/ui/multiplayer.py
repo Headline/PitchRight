@@ -47,14 +47,14 @@ class MutiplayerMenu:
         self.text_box.draw(self.surface)
         self.game.surface.blit(self.surface, (0, 0))
 
-
     def on_create_lobby(self):
         self.game.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.game.socket.bind(('0.0.0.0', 50001))
         self.game.socket.sendto(PacketFactory.create_lobby(), ('127.0.0.1', 2082))
         data = self.game.socket.recv(512)
         p = Packet(data, None)
-        print("Create lobby code: " + str(p.get_lobby_code()))
+        self.text_box.text = p.get_lobby_code()
+        self.text_box.redraw_text()
 
     def on_click(self, mx, my):
         if self.create_lobby_button.collidepoint((mx, my)):
