@@ -61,4 +61,4 @@ class Packet:
 
     def get_lobby_code(self):
         assert self.is_join() or self.is_create_response()
-        return self.bytes[2:8]
+        return self.bytes[1:6]

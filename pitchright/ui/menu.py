@@ -41,6 +41,7 @@ class MainMenu:
                                          self.game.height / 1.25, mx, my, color=(54, 54, 54, 255),
                                          color_highlight=(75, 75, 75, 255))
 
+
         if self.multiplayer_menu_open:
             self.multiplayer_menu.draw(mx, my)
         elif self.song_select_menu_open:
@@ -60,14 +61,14 @@ class MainMenu:
         self.song_select_menu_open = not self.song_select_menu_open
 
     def handle_event(self, event):
+        if self.multiplayer_menu_open:
+            self.multiplayer_menu.handle_event(event)
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mx, my = pygame.mouse.get_pos()
                 if self.song_select_menu_open:
                     self.song_menu.on_click(mx, my)
-                elif self.multiplayer_menu_open:
-                    self.multiplayer_menu.on_click(mx, my)
-                    return
 
                 if self.select_button.collidepoint((mx, my)):
                     self.song_select_menu_open = not self.song_select_menu_open

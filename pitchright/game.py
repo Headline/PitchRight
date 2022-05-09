@@ -47,7 +47,8 @@ class PitchRight:
             self.surface.fill(pygame.Color('#000000'))
             time_delta = self.clock.tick(60)/1000.0
 
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     self.is_running = False
                 if event.type == pygame.KEYDOWN:
